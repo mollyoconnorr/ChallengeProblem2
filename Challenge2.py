@@ -37,9 +37,6 @@ def load_initial_cities(csv_file):
     return cities
 
 
-# -------------------------
-# Load additional cities from persistent file
-# -------------------------
 def load_user_cities(file_path, cities):
     """
     Load user-added city data from a text file into the cities dictionary.

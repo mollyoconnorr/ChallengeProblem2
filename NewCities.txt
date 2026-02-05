@@ -1,2 +1,4 @@
 belgrade,Gallatin,6
 west yellowstone,Gallatin,6
+four corners,Gallatin,6
+gallatin gateway,Gallatin,6
