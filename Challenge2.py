@@ -1,7 +1,7 @@
 """
 Montana Counties License Plate Lookup
 Author: Molly O'Connor
-Date: 1/22/2026
+Date: 2/4/2026
 Description:
     This program allows users to look up Montana counties based on the city name.
     Users can see the county and license plate prefix, and add new cities if unknown.
@@ -11,6 +11,7 @@ import csv
 
 CITY_FILE = "NewCities.txt"  # Persistent file storing user-added cities (city, county, license prefix)
 CSV_FILE = "MontanaCounties.csv"  # Original Montana county data (county, county seat, license prefix)
+
 
 def load_initial_cities(csv_file):
     """
@@ -29,11 +30,12 @@ def load_initial_cities(csv_file):
     with open(csv_file, newline="") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            city = row["city"].strip().lower() # normalize name for dict keys
+            city = row["city"].strip().lower()  # normalize name for dict keys
             county = row["county"].strip()
             prefix = int(row["prefix"])
-            cities[city] = (county, prefix) # key = city
+            cities[city] = (county, prefix)  # key = city
     return cities
+
 
 # -------------------------
 # Load additional cities from persistent file
@@ -62,9 +64,11 @@ def load_user_cities(file_path, cities):
 
             city = parts[0].strip().lower()
             county = parts[1].strip()
-            prefix = parts[2].strip() if len(parts) > 2 else "unknown" # adds a prefix for each entry if it doesn't exist
+            prefix = parts[2].strip() if len(
+                parts) > 2 else "unknown"  # adds a prefix for each entry if it doesn't exist
 
             cities[city] = (county, prefix)
+
 
 def save_new_city(city_name, county_name, prefix):
     """
@@ -80,6 +84,7 @@ def save_new_city(city_name, county_name, prefix):
     # Open, write, and immediately close the file to prevent data corruption
     with open(CITY_FILE, "a") as file:
         file.write(f"{city_name},{county_name},{prefix}\n")
+
 
 def validate_name(name):
     """
@@ -99,6 +104,7 @@ def validate_name(name):
         return False
     return True
 
+
 def lookup_city(city_name, cities):
     """
     Look up a city in the cities dictionary and display its county information.
@@ -111,12 +117,13 @@ def lookup_city(city_name, cities):
     Returns:
         bool: True if the city is found and displayed, False otherwise.
     """
-    city_name_lower = city_name.lower() # lowercase for normalized dictionary lookup
+    city_name_lower = city_name.lower()  # lowercase for normalized dictionary lookup
     if city_name_lower in cities:
         county, prefix = cities[city_name_lower]
         print(f"{city_name.title()} is in {county} County (License Prefix {prefix})")
         return True
     return False
+
 
 def unknown_city(city_name, cities):
     """
@@ -217,6 +224,7 @@ def main():
             unknown_city(city_name, cities)
 
     print("Thanks! Have a good day.")
+
 
 # Run the program
 if __name__ == "__main__":
